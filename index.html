@@ -16,39 +16,11 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100vh; /* Занимаем всю высоту viewport для надежного центрирования */
+            min-height: 100vh;
             margin: 0;
             overflow: hidden;
             flex-direction: column; /* Для выравнивания по центру */
-            cursor: none; /* Делаем системный курсор невидимым */
-            /* Запрет выделения текста */
-            -webkit-user-select: none; /* Safari */
-            -ms-user-select: none;     /* IE 10+ */
-            user-select: none;         /* Standard */
         }
-
-        /* Кастомный курсор */
-        #customCursor {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 10px; /* Начальный размер точки */
-            height: 10px;
-            background-color: white;
-            border-radius: 50%;
-            pointer-events: none; /* Чтобы не блокировал события мыши под ним */
-            transform: translate(-50%, -50%); /* Центрируем точку по курсору */
-            transition: transform 0.1s ease-out, width 0.1s ease-out, height 0.1s ease-out; /* Плавное изменение размера */
-            z-index: 9999; /* Поверх всех элементов */
-        }
-
-        /* Уменьшение кастомного курсора при наведении на интерактивные элементы */
-        body.cursor-hover #customCursor {
-            width: 0.0001px; /* Почти невидимый */
-            height: 0.0001px;
-            transform: translate(-50%, -50%) scale(0.0001); /* Уменьшаем до минимума */
-        }
-
 
         .container {
             background-color: transparent; /* Прозрачный фон контейнера */
@@ -61,25 +33,11 @@
             box-shadow: none; /* Убираем тень */
             transition: transform 0.5s ease-out; /* Плавное изменение размера */
             position: relative; /* Для позиционирования */
-            margin: auto; /* Добавлено для центрирования контейнера */
-            /* Добавлены flex свойства для центрирования содержимого внутри контейнера */
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
         }
 
         h1 {
             color: #fff; /* Белый цвет для заголовка */
             margin-bottom: 30px;
-            font-size: 1.8em;
-            letter-spacing: 2px;
-            text-shadow: 0 0 5px rgba(255, 255, 255, 0.2);
-        }
-
-        h2 { /* Добавлено для заголовков меню */
-            color: #fff;
-            margin-bottom: 20px;
             font-size: 1.8em;
             letter-spacing: 2px;
             text-shadow: 0 0 5px rgba(255, 255, 255, 0.2);
@@ -121,7 +79,7 @@
             padding: 15px 25px;
             margin: 0; /* Убрал margin, использую gap */
             border-radius: 3px;
-            cursor: none; /* Курсор по умолчанию, будет переопределен для кнопок */
+            cursor: pointer;
             font-family: 'Press Start 2P', cursive;
             font-size: 0.9em;
             /* Анимируем opacity и transform */
@@ -142,7 +100,7 @@
             transform: translateX(0); /* Убедимся, что она на месте */
             transition: background-color 0.2s, color 0.2s, border-color 0.2s, transform 0.2s; /* Упрощенный transition */
         }
-        
+
         .options button:hover {
             background-color: #fff;
             color: #000;
@@ -178,7 +136,6 @@
             color: #ff0000;
             text-shadow: 0 0 15px rgba(255, 0, 0, 0.7);
             animation: flicker 0.5s infinite alternate;
-            width: 100%; /* Добавлено, чтобы он занимал всю доступную ширину */
         }
 
         @keyframes flicker {
@@ -192,758 +149,240 @@
         .stage-3 .question-text { color: #e0e0e0; }
         .stage-4 .question-text { color: #d0d0d0; }
         .stage-final .question-text { color: #c0c0c0; }
-
-        /* Стили для главного меню */
-        .main-menu, .settings-menu, .info-menu, .game-area { /* Добавлены .game-area для центрирования */
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            /* padding: 40px 30px; -- Убрано, так как уже в .container */
-            border-radius: 5px;
-            /* border: 2px solid #333; -- Убрано, так как уже в .container */
-            max-width: 100%; /* Эти элементы должны занимать всю ширину родительского контейнера */
-            width: 100%;
-            transition: transform 0.5s ease-out;
-            box-shadow: none;
-        }
-
-        .main-menu h1, .settings-menu h2, .info-menu h2 {
-            margin-bottom: 20px;
-            font-size: 2.5em;
-            letter-spacing: 2px;
-            text-shadow: 0 0 5px rgba(255, 255, 255, 0.2);
-        }
-
-        .main-menu p {
-            margin-bottom: 40px;
-            font-size: 1em;
-            color: #ccc;
-        }
-        
-        /* Стили для новых информационных полей */
-        .info-menu p {
-            margin-bottom: 15px; /* Меньший отступ между строками информации */
-            font-size: 0.9em;
-            color: #ccc;
-            line-height: 1.3;
-        }
-        .info-menu p:last-of-type {
-            margin-bottom: 30px; /* Отступ перед кнопкой "Назад" */
-        }
-
-
-        .main-menu button, .settings-menu button, .info-menu button {
-            background-color: transparent;
-            color: #fff;
-            border: 2px solid #fff;
-            padding: 15px 30px;
-            border-radius: 3px;
-            cursor: none; /* Курсор для кнопок также невидимый, будет управляться JS */
-            font-family: 'Press Start 2P', cursive;
-            font-size: 1.2em;
-            letter-spacing: 2px;
-            transition: background-color 0.2s, color 0.2s, border-color 0.2s, transform 0.2s;
-            box-shadow: none;
-            opacity: 1; /* Убедимся, что кнопки меню всегда видны */
-            visibility: visible;
-            margin-bottom: 15px; /* Отступ между кнопками меню */
-        }
-
-        .main-menu button:last-child, .settings-menu button:last-child, .info-menu button:last-child {
-            margin-bottom: 0; /* Убираем отступ у последней кнопки */
-        }
-
-        .main-menu button:hover, .settings-menu button:hover, .info-menu button:hover {
-            background-color: #fff;
-            color: #000;
-            border-color: #fff;
-            transform: scale(1.05);
-        }
-
-        .main-menu button:active, .settings-menu button:active, .info-menu button:active {
-            transform: scale(0.95);
-        }
-
-        /* Стили для элементов настроек */
-        .settings-option {
-            margin-bottom: 20px;
-            width: 100%;
-        }
-
-        .settings-option label {
-            display: block;
-            margin-bottom: 10px;
-            font-size: 1em;
-            color: #fff;
-            letter-spacing: 1px;
-        }
-
-        .speed-buttons button {
-            margin: 0 5px;
-            padding: 10px 15px;
-            font-size: 0.8em;
-            min-width: unset; /* Сброс min-width для кнопок скорости */
-        }
-
-        .speed-buttons button.active {
-            background-color: #fff;
-            color: #000;
-            border-color: #fff;
-        }
-
-        /* Оверлей для полноэкранного режима и старта аудио */
-        #fullscreenPrompt {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.95);
-            color: white;
-            font-family: 'Press Start 2P', cursive;
-            font-size: 1.5em;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            z-index: 10000;
-            cursor: none; /* Курсор на оверлее также невидимый */
-        }
-
-        /* Новый начальный экран с дисклеймером */
-        #initialDisclaimerPrompt {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: #000; /* Черный фон */
-            color: white;
-            font-family: 'Press Start 2P', cursive;
-            font-size: 1.2em;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            padding: 20px;
-            box-sizing: border-box;
-            z-index: 10001; /* Выше всех остальных */
-        }
-
-        #initialDisclaimerPrompt p {
-            margin-bottom: 30px;
-            max-width: 800px;
-            line-height: 1.6;
-        }
-
-        #initialDisclaimerPrompt button {
-            background-color: transparent;
-            color: #fff;
-            border: 2px solid #fff;
-            padding: 15px 30px;
-            border-radius: 3px;
-            cursor: none;
-            font-family: 'Press Start 2P', cursive;
-            font-size: 1.2em;
-            letter-spacing: 2px;
-            transition: background-color 0.2s, color 0.2s, border-color 0.2s, transform 0.2s;
-            box-shadow: none;
-        }
-        #initialDisclaimerPrompt button:hover {
-            background-color: #fff;
-            color: #000;
-            border-color: #fff;
-            transform: scale(1.05);
-        }
     </style>
 </head>
 <body>
-    <div id="customCursor"></div> <!-- Ваш кастомный курсор -->
+    <div class="container">
+        <h1>ОПРОС</h1>
+        <p>Ваша готовность отвечать будет оценена.</p>
 
-    <!-- Новый начальный экран с дисклеймером -->
-    <div id="initialDisclaimerPrompt">
-        <p>ВНИМАНИЕ! ЭТО ПСИХОЛОГИЧЕСКИЙ ХОРРОР. ИГРА СОЗДАНА ДЛЯ ПОГРУЖЕНИЯ И БУДЕТ ПЫТАТЬСЯ ОПРЕДЕЛИТЬ ВАШЕ ТЕКУЩЕЕ ВРЕМЯ, ПРИМЕРНОЕ МЕСТОПОЛОЖЕНИЕ (ГОРОД) И IP-АДРЕС ДЛЯ ИСПОЛЬЗОВАНИЯ В ВОПРОСАХ. ЭТИ ДАННЫЕ НЕ СОХРАНЯЮТСЯ, НЕ ПЕРЕДАЮТСЯ ТРЕТЬИМ ЛИЦАМ И ИСПОЛЬЗУЮТСЯ ИСКЛЮЧИТЕЛЬНО ДЛЯ ИГРОВОГО ОПЫТА. ЕСЛИ ВЫ НЕ ГОТОВЫ К ТАКОМУ ОПЫТУ ИЛИ ЧУВСТВИТЕЛЬНЫ К ТЕМЕ ЛИЧНЫХ ДАННЫХ, ПОЖАЛУЙСТА, ЗАКРОЙТЕ СТРАНИЦУ. ПРОДОЛЖАЯ, ВЫ ПОДТВЕРЖДАЕТЕ, ЧТО ПОНИМАЕТЕ ЭТО.</p>
-        <button id="acceptDisclaimerButton">Я ПОНИМАЮ И ГОТОВ ПРОДОЛЖИТЬ</button>
-    </div>
-
-    <div id="fullscreenPrompt" style="display: none;">
-        НАЖМИТЕ В ЛЮБОМ МЕСТЕ, ЧТОБЫ НАЧАТЬ
-    </div>
-
-    <div class="container" id="mainContainer" style="display: none;"> <!-- Скрываем контейнер по умолчанию -->
-        <!-- Главное меню -->
-        <div class="main-menu" id="mainMenu">
-            <h1 id="mainMenuTitle">ОПРОС</h1>
-            <p id="mainMenuSubtitle">ПРОВЕРЬТЕ СВОЙ РАЗУМ.</p>
-            <button id="startButtonMenu">НАЧАТЬ ОПРОС</button>
-            <button id="settingsButton">НАСТРОЙКИ</button>
-            <button id="infoButton">ИНФОРМАЦИЯ</button>
-        </div>
-
-        <!-- Меню настроек (изначально скрыто) -->
-        <div class="settings-menu" id="settingsMenu" style="display: none;">
-            <h2 id="settingsMenuTitle">НАСТРОЙКИ</h2>
-            <div class="settings-option">
-                <button id="languageButton">ЯЗЫК: РУССКИЙ</button>
-            </div>
-            <div class="settings-option">
-                <button id="soundToggleButton">ЗВУКИ: ВКЛ</button>
-            </div>
-            <div class="settings-option">
-                <label id="typingSpeedLabel">СКОРОСТЬ ПЕЧАТИ:</label>
-                <div class="speed-buttons">
-                    <button id="speedFastButton" data-speed="30">БЫСТРО</button>
-                    <button id="speedNormalButton" data-speed="50" class="active">НОРМАЛЬНО</button>
-                    <button id="speedSlowButton" data-speed="80">МЕДЛЕННО</button>
-                </div>
-            </div>
-            <button id="backToMainMenuBtnSettings">НАЗАД</button>
-        </div>
-
-        <!-- Меню информации (изначально скрыто) -->
-        <div class="info-menu" id="infoMenu" style="display: none;">
-            <h2 id="infoMenuTitle">ИНФОРМАЦИЯ О ПРОЕКТЕ</h2>
-            <p id="infoVersion"></p>
-            <p id="infoDevelopers"></p>
-            <p id="infoDisclaimer"></p>
-            <button id="backToMainMenuBtnInfo">НАЗАД</button>
-        </div>
-
-        <!-- Игровая область (изначально скрыта) -->
-        <div class="game-area" id="gameArea" style="display: none;">
-            <div class="question-text" id="question"></div>
+        <div class="game-area">
+            <div class="question-text" id="question">Начать опрос?</div>
             <div class="options" id="options">
-                <!-- Кнопки ответов будут вставляться здесь JS -->
+                <!-- Кнопка "НАЧАТЬ" будет вставлена здесь JS -->
             </div>
         </div>
 
-        <div class="end-screen" id="endScreen" style="display: none;">
+        <div class="end-screen" id="endScreen">
             <div id="endMessage"></div>
-            <p id="thanksMessage" style="margin-top: 30px; font-size: 0.8em; color: #aaa;">СПАСИБО ЗА УЧАСТИЕ.</p>
+            <p style="margin-top: 30px; font-size: 0.8em; color: #aaa;">СПАСИБО ЗА УЧАСТИЕ.</p>
         </div>
     </div>
 
     <script>
-        // Объект с переводами
-        const translations = {
-            ru: {
-                title: "ОПРОС",
-                subtitle: "ПРОВЕРЬТЕ СВОЙ РАЗУМ.",
-                startSurvey: "НАЧАТЬ ОПРОС",
-                settings: "НАСТРОЙКИ",
-                info: "ИНФОРМАЦИЯ", // Текст для кнопки
-                infoMenuTitle: "ИНФОРМАЦИЯ О ПРОЕКТЕ", // Заголовок меню информации
-                infoVersion: "Версия: 1.0.0",
-                infoDevelopers: "Разработчики: TriOX team",
-                infoDisclaimer: "ЭТО ПРОСТО ИГРА ЖАНРА ПСИХОЛОГИЧЕСКОГО ХОРРОРА. ДЛЯ УСИЛЕНИЯ ЭФФЕКТА ИГРА БУДЕТ ПЫТАТЬСЯ ОПРЕДЕЛИТЬ ВАШЕ ТЕКУЩЕЕ ВРЕМЯ, ПРИМЕРНОЕ МЕСТОПОЛОЖЕНИЕ (ГОРОД) И IP-АДРЕС ДЛЯ ИСПОЛЬЗОВАНИЯ В ВОПРОСАХ. ЭТИ ДАННЫЕ НЕ СОХРАНЯЮТСЯ, НЕ ПЕРЕДАЮТСЯ ТРЕТЬИМ ЛИЦАМ И ИСПОЛЬЗУЮТСЯ ИСКЛЮЧИТЕЛЬНО ДЛЯ ИГРОВОГО ОПЫТА. ЕСЛИ ВЫ НЕ ГОТОВЫ К ТАКОМУ ОПЫТУ ИЛИ ЧУВСТВИТЕЛЬНЫ К ТЕМЕ ЛИЧНЫХ ДАННЫХ, ПОЖАЛУЙСТА, ЗАКРОЙТЕ СТРАНИЦУ. ПРОДОЛЖАЯ, ВЫ ПОДТВЕРЖДАЕТЕ, ЧТО ПОНИМАЕТЕ ЭТО.",
-                language: "ЯЗЫК: РУССКИЙ",
-                sounds: "ЗВУКИ:",
-                on: "ВКЛ",
-                off: "ВЫКЛ",
-                typingSpeed: "СКОРОСТЬ ПЕЧАТИ:",
-                fast: "БЫСТРО",
-                normal: "НОРМАЛЬНО",
-                slow: "МЕДЛЕННО",
-                back: "НАЗАД",
-                thanks: "СПАСИБО ЗА УЧАСТИЕ.",
-                stressLevel: "ВАШ УРОВЕНЬ СТРЕССА:",
-                stressCommentLow: "ВЫ СПОКОЙНЫ И УРАВНОВЕШЕНЫ.",
-                stressCommentModerate: "ВЫ СПРАВЛЯЕТЕСЬ С ДАВЛЕНИЕМ.",
-                stressCommentHigh: "ВЫ ЧУВСТВУЕТЕ ЗНАЧИТЕЛЬНОЕ НАПРЯЖЕНИЕ.",
-                stressCommentCritical: "ВЫ НА ГРАНИ. БУДЬТЕ ОСТОРОЖНЫ.",
-                questions: [
-                    "ВАШ ДЕНЬ ПРОШЕЛ ХОРОШО СЕГОДНЯ?",
-                    "ВЫ ВЫСПАЛИСЬ?",
-                    "ВЫ БОДРЫ?",
-                    "У ВАС КОГДА-НИБУДЬ БЫЛО ДЕЖАВЮ?",
-                    "ВЫ УВЕРЕНЫ, ЧТО ВОСПРИНИМАЕТЕ МИР ТАКИМ, КАКОЙ ОН ЕСТЬ, БЕЗ ИСКАЖЕНИЙ?",
-                    `ВЫ УВЕРЕНЫ, ЧТО СЕЙЧАС ${new Date().getHours() >= 6 && new Date().getHours() < 20 ? 'ДЕНЬ' : 'НОЧЬ'}?`,
-                    "ВЫ ПОМНИТЕ, КАК ИМЕННО ОКАЗАЛИСЬ ЗДЕСЬ?",
-                    "ВАШИ ВОСПОМИНАНИЯ ЗА ПОСЛЕДНИЙ ЧАС ЧЕТКИЕ?",
-                    "ВЫ ЧУВСТВУЕТЕ ПРИСУТСТВИЕ КОГО-ТО В КОМНАТЕ, ПОМИМО ВАС?",
-                    "СЛЫШИТЕ ЛИ ВЫ ГОЛОСА ИЛИ МУЗЫКУ В ГОЛОВЕ?",
-                    "ЕСЛИ ВЫ УЛЫБНЕТЕСЬ В ЗЕРКАЛО, ОНО ПОВТОРИТ ВАШИ ДЕЙСТВИЯ КАК ОЖИДАЛОСЬ?",
-                    "ВЫ КОГДА-НИБУДЬ ТЕРЯЛИ КОНТРОЛЬ НАД СОБОЙ?",
-                    "ВЫ ЗНАЕТЕ, ГДЕ ВЫ НАХОДИТЕСЬ НА САМОМ ДЕЛЕ?",
-                    "ВЫ УВЕРЕНЫ, ЧТО ВЫ НАСТОЯЩИЙ ЧЕЛОВЕК?",
-                    "ЭТО ЧУВСТВО... ОНО ВАМ ЗНАКОМО?", 
-                    "ИНОГДА ВАМ КАЖЕТСЯ, ЧТО ОКРУЖАЮЩЕЕ НЕРЕАЛЬНО?",
-                    "ВАШИ МЫСЛИ ПОЛНОСТЬЮ КОНТРОЛИРУЕТЕ ВЫ?",
-                    "ВЫ УВЕРЕНЫ, ЧТО ВСЕ ВАШИ ВОСПОМИНАНИЯ НАСТОЯЩИЕ?",
-                    "ЗАМЕЧАЛИ ЛИ ВЫ, ЧТО ПРЕДМЕТЫ ИНОГДА МЕНЯЮТ СВОИ ФОРМЫ?",
-                    "ВЫ ЧУВСТВУЕТЕ, ЧТО ТЕРЯЕТЕ КОНТРОЛЬ НАД СИТУАЦИЕЙ?",
-                    "ГОЛОСА В ВАШЕЙ ГОЛОВЕ СТАНОВЯТСЯ ВСЕ ГРОМЧЕ?",
-                    "ВЫ ОЩУЩАЕТЕ БЕСПРИЧИННЫЙ СТРАХ ИЛИ ТРЕВОГУ?",
-                    "ВЫ ДУМАЕТЕ, ЧТО ЗА ВАМИ НАБЛЮДАЮТ?",
-                    "ВЫ ПОНИМАЕТЕ, ЧТО ЭТО ПРОСТО ОПРОС?",
-                    "ВЫ ГОТОВЫ ПРИНЯТЬ ТО, ЧТО ВЫ НЕ ОДНИ?"
-                ],
-                // Новые вопросы, которые будут динамически вставляться
-                questionTime: "СЕЙЧАС {time}?",
-                questionIp: "ТВОЙ IP-АДРЕС ЭТО {ip}?",
-                questionIpFallback: "КАЖЕТСЯ, ЧТО ТВОЙ АДРЕС В СЕТИ ИЗВЕСТЕН?", // Запасной текст
-                questionLocation: "ТЕБЕ НРАВИТСЯ {city}?",
-                questionLocationFallback: "ТЫ УВЕРЕН, ЧТО НАХОДИШЬСЯ ТАМ, ГДЕ ДУМАЕШЬ?", // Запасной текст
-                answers: {
-                    "ДА": "ДА",
-                    "НЕТ": "НЕТ",
-                    "НЕ ЗНАЮ": "НЕ ЗНАЮ"
-                }
-            },
-            en: {
-                title: "SURVEY",
-                subtitle: "TEST YOUR MIND.",
-                startSurvey: "START SURVEY",
-                settings: "SETTINGS",
-                info: "INFO",
-                infoMenuTitle: "PROJECT INFORMATION",
-                infoVersion: "Version: 1.0.0",
-                infoDevelopers: "Developers: TriOX team",
-                infoDisclaimer: "THIS IS JUST A PSYCHOLOGICAL HORROR GAME. TO ENHANCE THE EFFECT, THE GAME WILL ATTEMPT TO DETERMINE YOUR CURRENT TIME, APPROXIMATE LOCATION (CITY), AND IP ADDRESS FOR USE IN QUESTIONS. THIS DATA IS NOT SAVED, SHARED WITH THIRD PARTIES, AND IS USED SOLELY FOR THE GAME EXPERIENCE. IF YOU ARE NOT READY FOR THIS EXPERIENCE OR ARE SENSITIVE TO PERSONAL DATA TOPICS, PLEASE CLOSE THE PAGE. BY CONTINUING, YOU CONFIRM THAT YOU UNDERSTAND THIS.",
-                language: "LANGUAGE: ENGLISH",
-                sounds: "SOUNDS:",
-                on: "ON",
-                off: "OFF",
-                typingSpeed: "TYPING SPEED:",
-                fast: "FAST",
-                normal: "NORMAL",
-                slow: "SLOW",
-                back: "BACK",
-                thanks: "THANK YOU FOR PARTICIPATING.",
-                stressLevel: "YOUR STRESS LEVEL:",
-                stressCommentLow: "YOU ARE CALM AND BALANCED.",
-                stressCommentModerate: "YOU ARE COPING WITH PRESSURE.",
-                stressCommentHigh: "YOU FEEL SIGNIFICANT TENSION.",
-                stressCommentCritical: "YOU ARE ON THE EDGE. BE CAREFUL.",
-                questions: [
-                    "DID YOUR DAY GO WELL TODAY?",
-                    "DID YOU SLEEP WELL?",
-                    "ARE YOU FEELING ENERGETIC?",
-                    "HAVE YOU EVER HAD A SENSE OF DEJA VU?",
-                    "ARE YOU SURE YOU PERCEIVE THE WORLD AS IT IS, WITHOUT DISTORTIONS?",
-                    `ARE YOU SURE IT IS ${new Date().getHours() >= 6 && new Date().getHours() < 20 ? 'DAY' : 'NIGHT'} RIGHT NOW?`,
-                    "DO YOU REMEMBER EXACTLY HOW YOU GOT HERE?",
-                    "ARE YOUR MEMORIES OF THE LAST HOUR CLEAR?",
-                    "DO YOU FEEL THE PRESENCE OF SOMEONE ELSE IN THIS ROOM, BESIDES YOU?",
-                    "DO YOU HEAR VOICES OR MUSIC IN YOUR HEAD?",
-                    "IF YOU SMILE AT THE MIRROR, WILL IT REFLECT YOUR ACTIONS AS EXPECTED?",
-                    "HAVE YOU EVER LOST CONTROL OF YOURSELF?",
-                    "DO YOU KNOW WHERE YOU REALLY ARE?",
-                    "ARE YOU SURE YOU ARE A REAL PERSON?",
-                    "THIS FEELING... IS IT FAMILIAR TO YOU?",
-                    "DOES IT SOMETIMES SEEM TO YOU THAT THE SURROUNDINGS ARE UNREAL?",
-                    "ARE YOUR THOUGHTS COMPLETELY CONTROLLED BY YOU?",
-                    "ARE YOU SURE ALL YOUR MEMORIES ARE REAL?",
-                    "HAVE YOU NOTICED OBJECTS SOMETIMES CHANGE THEIR SHAPES?",
-                    "DO YOU FEEL LIKE YOU'RE LOSING CONTROL OF THE SITUATION?",
-                    "ARE THE VOICES IN YOUR HEAD GETTING LOUDER?",
-                    "DO YOU FEEL UNREASONABLE FEAR OR ANXIETY?",
-                    "DO YOU THINK SOMEONE IS WATCHING YOU?",
-                    "DO YOU UNDERSTAND THAT THIS IS JUST A SURVEY?",
-                    "ARE YOU READY TO ACCEPT THAT YOU ARE NOT ALONE?"
-                ],
-                questionTime: "IS IT {time} RIGHT NOW?",
-                questionIp: "IS YOUR IP ADDRESS {ip}?",
-                questionIpFallback: "DOES IT SEEM LIKE YOUR ONLINE ADDRESS IS KNOWN?",
-                questionLocation: "DO YOU LIKE {city}?",
-                questionLocationFallback: "ARE YOU SURE YOU ARE WHERE YOU THINK YOU ARE?",
-                answers: {
-                    "ДА": "YES",
-                    "НЕТ": "NO",
-                    "НЕ ЗНАЮ": "I DON'T KNOW"
-                }
-            },
-            uk: {
-                title: "ОПИТУВАННЯ",
-                subtitle: "ПЕРЕВІРТЕ СВІЙ РОЗУМ.",
-                startSurvey: "РОЗПОЧАТИ ОПИТУВАННЯ",
-                settings: "НАЛАШТУВАННЯ",
-                info: "ІНФОРМАЦІЯ",
-                infoMenuTitle: "ІНФОРМАЦІЯ ПРО ПРОЕКТ",
-                infoVersion: "Версія: 1.0.0",
-                infoDevelopers: "Розробники: TriOX team",
-                infoDisclaimer: "ЦЕ ПРОСТО ГРА ЖАНРУ ПСИХОЛОГІЧНОГО ЖАХУ. ДЛЯ ПОСИЛЕННЯ ЕФЕКТУ ГРА НАМАГАТИМЕТЬСЯ ВИЗНАЧИТИ ВАШ ПОТОЧНИЙ ЧАС, ПРИБЛИЗНЕ МІСЦЕЗНАХОДЖЕННЯ (МІСТО) ТА IP-АДРЕСУ ДЛЯ ВИКОРИСТАННЯ В ЗАПИТАННЯХ. ЦІ ДАНІ НЕ ЗБІРАЮТЬСЯ, НЕ ЗБЕРІГАЮТЬСЯ І НЕ ПЕРЕДАЮТЬСЯ ТРЕТІМ ОСОБАМ. ЛЮДЯМ ЗІ СЛАБКИМИ НЕРВАМИ КРАЩЕ НЕ ГРАТИ.",
-                language: "МОВА: УКРАЇНСЬКА",
-                sounds: "ЗВУКИ:",
-                on: "УВІМК",
-                off: "ВИМК",
-                typingSpeed: "ШВИДКІСТЬ ДРУКУ:",
-                fast: "ШВИДКО",
-                normal: "НОРМАЛЬНО",
-                slow: "ПОВІЛЬНО",
-                back: "НАЗАД",
-                thanks: "ДЯКУЄМО ЗА УЧАСТЬ.",
-                stressLevel: "ВАШ РІВЕНЬ СТРЕСУ:",
-                stressCommentLow: "ВИ СПОКІЙНІ ТА ВРІВНОВАЖЕНІ.",
-                stressCommentModerate: "ВИ СПРАВЛЯЄТЕСЬ З ТИСКОМ.",
-                stressCommentHigh: "ВИ ВІДЧУВАЄТЕ ЗНАЧНЕ НАПРУЖЕННЯ.",
-                stressCommentCritical: "ВИ НА МЕЖІ. БУДЬТЕ ОБЕРЕЖНІ.",
-                questions: [
-                    "ЯК ПРОЙШОВ ВАШ ДЕНЬ СЬОГОДНІ?",
-                    "ВИ ДОБРЕ СПАЛИ МИНУЛОЇ НОЧІ?",
-                    "ВИ БАДЬОРІ?",
-                    "ЧИ БУЛО У ВАС КОЛИ-НЕБУДЬ ВІДЧУТТЯ ДЕЖАВЮ?",
-                    "ВИ ВПЕВНЕНІ, ЩО СПРИЙМАЄТЕ СВІТ ТАКИМ, ЯКИЙ ВІН Є, БЕЗ СПОТВОРЕНЬ?",
-                    `ВИ ВПЕВНЕНІ, ЩО ЗАРАЗ ${new Date().getHours() >= 6 && new Date().getHours() < 20 ? 'ДЕНЬ' : 'НІЧ'}?`,
-                    "ВИ ПАМ'ЯТАЄТЕ, ЯК САМЕ ОПИНИЛИСЯ ТУТ?",
-                    "ВАШІ СПОГАДИ ЗА ОСТАННЮ ГОДИНУ ЧІТКІ?",
-                    "ВИ ВІДЧУВАЄТЕ ПРИСУТНІСТЬ ЩЕ КОГОСЬ У ЦІЙ КІМНАТІ, КРІМ ВАС?",
-                    "ЧИ ЧУЄТЕ ВИ ГОЛОСИ АБО МУЗИКУ В ГОЛОВІ?",
-                    "ЯКЩО ВИ ПОСМІХНЕТЕСЯ В ДЗЕРКАЛО, ВОНО ПОВТОРИТЬ ВАШІ ДІЇ, ЯК ОЧІКУВАЛОСЯ?",
-                    "ВИ КОЛИ-НЕБУДЬ ВТРАЧАЛИ КОНТРОЛЬ НАД СОБОЮ?",
-                    "ВИ ЗНАЄТЕ, ДЕ ВИ ЗАРАЗ НАСПРАВДІ ЗНАХОДИТЕСЬ?",
-                    "ВИ ВПЕВНЕНІ, ЩО ВИ СПРАВЖНЯ ЛЮДИНА?",
-                    "ЦЕ ВІДЧУТТЯ... ВОНО ВАМ ЗНАЙОМЕ?",
-                    "ІНОДІ ВАМ ЗДАЄТЬСЯ, ЩО НАВКОЛИШНЄ НЕРЕАЛЬНЕ?",
-                    "ВАШІ ДУМКИ ПОВНІСТЮ КОНТРОЛЮЄТЕ ВИ?",
-                    "ВИ ВПЕВНЕНІ, ЩО ВСІ ВАШІ СПОГАДИ СПРАВЖНІ?",
-                    "ЧИ ПОМІЧАЛИ ВИ, ЩО ПРЕДМЕТИ ІНОДІ ЗМІНЮЮТЬ СВОЇ ФОРМИ?",
-                    "ВИ ВІДЧУВАЄТЕ, ЩО ВТРАЧАЄТЕ КОНТРОЛЬ НАД СИТУАЦІЄЮ?",
-                    "ГОЛОСИ У ВАШІЙ ГОЛОВІ СТАЮТЬ ВСЕ ГОЛОСНІШИМИ?",
-                    "ВИ ОЩУЩАЄТЕ БЕСПРИЧИННИЙ СТРАХ АБО ТРИВОГУ?",
-                    "ВИ ДУМАЄТЕ, ЩО ЗА ВАМИ СПОСТЕРІГАЮТЬ?",
-                    "ВИ ПОНИМАЕТЕ, ЧТО ЭТО ПРОСТО ОПРОС?",
-                    "ВИ ГОТОВІ ПРИЙНЯТИ ТО, ЩО ВИ НЕ ОДНИ?"
-                ],
-                questionTime: "ЗАРАЗ {time}?",
-                questionIp: "ВАША IP-АДРЕСА {ip}?",
-                questionIpFallback: "ЗДАЄТЬСЯ, ЩО ТВОЯ АДРЕСА В МЕРЕЖІ ВІДОМА?",
-                questionLocation: "ТОБІ ПОДОБАЄТЬСЯ {city}?",
-                questionLocationFallback: "ТИ ВПЕВНЕНИЙ, ЩО ЗНАХОДИШСЯ ТАМ, ДЕ ДУМАЄШ?",
-                answers: {
-                    "ДА": "ТАК",
-                    "НЕТ": "НІ",
-                    "НЕ ЗНАЮ": "НЕ ЗНАЮ"
-                }
-            }
-        };
-
         // Инициализация Tone.js для звуков печати
         const synth = new Tone.Synth({
             oscillator: { type: "triangle" },
             envelope: {
                 attack: 0.001,
-                decay: 0.01, 
-                sustain: 0.001, 
-                release: 0.01 
+                decay: 0.01, /* Очень короткий decay */
+                sustain: 0.001, /* Очень короткий sustain */
+                release: 0.01 /* Очень короткий release */
             }
         }).toDestination();
-
-        // Синтезаторы для звуков меню
-        const menuHoverSynth = new Tone.Synth({
-            oscillator: { type: "sine" },
-            envelope: { attack: 0.005, decay: 0.05, sustain: 0.01, release: 0.1 }
-        }).toDestination();
-
-        const menuClickSynth = new Tone.Synth({
-            oscillator: { type: "square" },
-            envelope: { attack: 0.01, decay: 0.1, sustain: 0.02, release: 0.2 }
-        }).toDestination();
-
-        // Глобальные переменные для динамической скорости печати и тона
-        let baseTypingDelay = parseInt(localStorage.getItem('typingSpeed') || '50'); 
-        let currentTypingDelay = baseTypingDelay; 
-        let currentTypingPitch = "C4"; 
-        let isSoundEnabled = (localStorage.getItem('isSoundEnabled') !== 'false'); 
-
-        // Массив нот для постепенного понижения тона
-        const typingPitches = ["C4", "B3", "A3", "G3", "F3", "E3", "D3", "C3", "B2", "A2", "G2"];
-
-        // Текущий язык
-        let currentLanguage = localStorage.getItem('language') || 'ru';
-        const languageCodes = ['ru', 'en', 'uk'];
-
-        // Получаем ссылки на элементы DOM
-        const mainMenu = document.getElementById('mainMenu');
-        const settingsMenu = document.getElementById('settingsMenu');
-        const infoMenu = document.getElementById('infoMenu');
-        const gameArea = document.getElementById('gameArea');
-        const endScreen = document.getElementById('endScreen');
-        const fullscreenPrompt = document.getElementById('fullscreenPrompt'); // Новый элемент
-        const initialDisclaimerPrompt = document.getElementById('initialDisclaimerPrompt'); // Новый элемент
-
-        const startButtonMenu = document.getElementById('startButtonMenu');
-        const settingsButton = document.getElementById('settingsButton');
-        const infoButton = document.getElementById('infoButton');
-        const backToMainMenuBtnSettings = document.getElementById('backToMainMenuBtnSettings');
-        const backToMainMenuBtnInfo = document.getElementById('backToMainMenuBtnInfo');
-        const acceptDisclaimerButton = document.getElementById('acceptDisclaimerButton'); // Новая кнопка
-
-        const languageButton = document.getElementById('languageButton');
-        const soundToggleButton = document.getElementById('soundToggleButton');
-        const speedFastButton = document.getElementById('speedFastButton');
-        const speedNormalButton = document.getElementById('speedNormalButton');
-        const speedSlowButton = document.getElementById('speedSlowButton');
-        const speedButtonsContainer = document.querySelector('.speed-buttons');
-
-        const questionElement = document.getElementById('question');
-        const optionsElement = document.getElementById('options');
-        const endMessageElement = document.getElementById('endMessage');
-        const body = document.body;
-        const container = document.getElementById('mainContainer');
-        const customCursor = document.getElementById('customCursor'); // Ваш кастомный курсор
-
-        // Переменные для состояния игры
-        let currentQuestionIndex = 0;
-        let unsettlingScore = 0;
-        let nextQuestionPause = 400;
-
-        // Массив вопросов с их индексами в translations и баллами за ответы
-        // Включены новые динамические вопросы с типом
-        const questions = [
-            { questionIndex: 0, scores: { "ДА": 0, "НЕТ": 1, "НЕ ЗНАЮ": 0 } },
-            { questionIndex: 1, scores: { "ДА": 0, "НЕТ": 1, "НЕ ЗНАЮ": 0 } },
-            { questionIndex: 2, scores: { "ДА": 0, "НЕТ": 1, "НЕ ЗНАЮ": 0 } },
-            { questionIndex: 3, scores: { "ДА": 1, "НЕТ": 0, "НЕ ЗНАЮ": 0 } },
-            { questionIndex: 4, scores: { "ДА": 0, "НЕТ": 2, "НЕ ЗНАЮ": 1 } },
-            // Вставляем динамические вопросы здесь
-            { type: 'dynamic_time', scores: { "ДА": 10, "НЕТ": 5, "НЕ ЗНАЮ": 8 } },
-            { type: 'dynamic_ip', scores: { "ДА": 15, "НЕТ": 10, "НЕ ЗНАЮ": 12 } },
-            { type: 'dynamic_location', scores: { "ДА": 13, "НЕТ": 8, "НЕ ЗНАЮ": 10 } },
-            // Продолжаем обычные вопросы
-            { questionIndex: 5, scores: { "ДА": 0, "НЕТ": 3, "НЕ ЗНАЮ": 1 } },
-            { questionIndex: 6, scores: { "ДА": 0, "НЕТ": 4, "НЕ ЗНАЮ": 2 } },
-            { questionIndex: 7, scores: { "ДА": 0, "НЕТ": 5, "НЕ ЗНАЮ": 3 } },
-            { questionIndex: 8, scores: { "ДА": 6, "НЕТ": 0, "НЕ ЗНАЮ": 4 } },
-            { questionIndex: 9, scores: { "ДА": 7, "НЕТ": 0, "НЕ ЗНАЮ": 5 } },
-            { questionIndex: 10, scores: { "ДА": 0, "НЕТ": 8, "НЕ ЗНАЮ": 6 } },
-            { questionIndex: 11, scores: { "ДА": 9, "НЕТ": 0, "НЕ ЗНАЮ": 7 } },
-            { questionIndex: 12, scores: { "ДА": 0, "НЕТ": 10, "НЕ ЗНАЮ": 8 } },
-            { questionIndex: 13, scores: { "ДА": 0, "НЕТ": 11, "НЕ ЗНАЮ": 9 } },
-            { questionIndex: 14, scores: { "ДА": 12, "НЕТ": 0, "НЕ ЗНАЮ": 10 } },
-            { questionIndex: 15, scores: { "ДА": 13, "НЕТ": 0, "НЕ ЗНАЮ": 11 } },
-            { questionIndex: 16, scores: { "ДА": 0, "НЕТ": 14, "НЕ ЗНАЮ": 12 } },
-            { questionIndex: 17, scores: { "ДА": 0, "НЕТ": 15, "НЕ ЗНАЮ": 13 } },
-            { questionIndex: 18, scores: { "ДА": 16, "НЕТ": 0, "НЕ ЗНАЮ": 14 } },
-            { questionIndex: 19, scores: { "ДА": 17, "НЕТ": 0, "НЕ ЗНАЮ": 15 } },
-            { questionIndex: 20, scores: { "ДА": 18, "НЕТ": 0, "НЕ ЗНАЮ": 16 } },
-            { questionIndex: 21, scores: { "ДА": 19, "НЕТ": 0, "НЕ ЗНАЮ": 17 } },
-            { questionIndex: 22, scores: { "ДА": 20, "НЕТ": 0, "НЕ ЗНАЮ": 18 } },
-            { questionIndex: 23, scores: { "ДА": 0, "НЕТ": 21, "НЕ ЗНАЮ": 19 } },
-            { questionIndex: 24, scores: { "ДА": 22, "НЕТ": 0, "НЕ ЗНАЮ": 20 } }
-        ];
-
-        // Максимальный возможный счет: Сумма максимальных баллов по всем вопросам
-        const MAX_UNSETTLING_SCORE = questions.reduce((sum, q) => {
-            return sum + Math.max(...Object.values(q.scores));
-        }, 0);
-
-
-        // Обновленные концовки с уровнем стресса и комментариями
-        const endings = {
-            low: { 
-                commentKey: `stressCommentLow`,
-                color: '#00ff00',
-                animation: 'none'
-            },
-            moderate: { 
-                commentKey: `stressCommentModerate`,
-                color: '#ffdd00',
-                animation: 'flicker 0.8s infinite alternate'
-            },
-            high: { 
-                commentKey: `stressCommentHigh`,
-                color: '#ffa500', 
-                animation: 'flicker 0.5s infinite alternate'
-            },
-            critical: { 
-                commentKey: `stressCommentCritical`,
-                color: '#ff0000',
-                animation: 'flicker 0.3s infinite alternate'
-            }
-        };
-
-        // --- Функции для аудио и курсора ---
 
         // Функция для симуляции печати текста
-        async function typeText(element, text) { 
-            element.innerText = ''; 
+        async function typeText(element, text, charDelay = 50) {
+            element.innerText = ''; // Очищаем текст перед набором
             let i = 0;
             return new Promise(resolve => {
                 const interval = setInterval(() => {
                     if (i < text.length) {
                         element.innerText += text.charAt(i);
-                        if (isSoundEnabled && text.charAt(i).match(/[А-Яа-яA-Za-z0-9]/)) {
-                            synth.triggerAttackRelease(currentTypingPitch, "64n", Tone.now()); 
+                        // Проигрываем звук только для букв и цифр
+                        if (text.charAt(i).match(/[а-яА-Яa-zA-Z0-9]/)) {
+                            // Воспроизводим звук без смещения, полагаясь на очень короткий release
+                            synth.triggerAttackRelease("C4", "64n"); // Очень короткая нота
                         }
                         i++;
                     } else {
                         clearInterval(interval);
                         resolve();
                     }
-                }, currentTypingDelay); 
+                }, charDelay);
             });
         }
 
-        // Вспомогательная функция для обработки кликов по кнопкам с учетом аудиоконтекста
-        async function handleButtonClick(synthToPlay, callback) {
-            // Убедимся, что аудиоконтекст запущен
+        // Вопросы и варианты ответов с привязанными "очками тревожности"
+        const questions = [
+            { // Q1: Normal, very low stakes
+                question: "ваш день прошёл хорошо сегодня?",
+                scores: { "ДА": 0, "НЕТ": 1, "НЕ ЗНАЮ": 0 }
+            },
+            { // Q2: Still normal, slightly philosophical
+                question: "вы выспались?",
+                scores: { "ДА": 0, "НЕТ": 1, "НЕ ЗНАЮ": 1 }
+            },
+            { // Q3: Slight unease, mundane oddities
+                question: "вы бодры?",
+                scores: { "ДА": 0, "НЕТ": 1, "НЕ ЗНАЮ": 2 }
+            },
+            { // Q4: Personal, existential hint
+                question: "у вас когда нибудь было дежавю?",
+                scores: { "ДА": 2, "НЕТ": 0, "НЕ ЗНАЮ": 1 }
+            },
+            { // Q5: Reality distortion hint, getting slightly more direct
+                question: "вы уверены что вопринимаете мир какой он есть и без искажений?",
+                scores: { "ДА": 0, "НЕТ": 3, "НЕ ЗНАЮ": 2 }
+            },
+            { // Q6: Questioning time, psychological "lie" detection
+                question: `ВЫ УВЕРЕНЫ, ЧТО СЕЙЧАС ${new Date().getHours() >= 6 && new Date().getHours() < 20 ? 'ДЕНЬ' : 'НОЧЬ'}?`,
+                scores: { "ДА": 0, "НЕТ": 4, "НЕ ЗНАЮ": 3 } 
+            },
+            { // Q7: Memory, location ambiguity, first truly unsettling question
+                question: "ВЫ ПОМНИТЕ, КАК ИМЕННО ОКАЗАЛИСЬ ЗДЕСЬ?",
+                scores: { "ДА": 0, "НЕТ": 5, "НЕ ЗНАЮ": 4 }
+            },
+            { // Q8: Short-term memory distortion, more immediate
+                question: "ваши воспоминания за последний час чёткие?",
+                scores: { "ДА": 0, "НЕТ": 6, "НЕ ЗНАЮ": 5 }
+            },
+            { // Q9: Presence, paranoia, direct question about unseen entities
+                question: "вы чувствуете кого то в комнате помимо вас?",
+                scores: { "ДА": 7, "НЕТ": 0, "НЕ ЗНАЮ": 6 }
+            },
+            { // Q10: Auditory, first hint of voices, subtle
+                question: "слышите ли вы голоса / музыку в голове?",
+                scores: { "ДА": 8, "НЕТ": 0, "НЕ ЗНАЮ": 7 }
+            },
+            { // Q11: Identity crisis, self-alienation, very disturbing
+                question: "если вы улыбнётесь в зеркало, оно повторит ваши действия как ожидалось?",
+                scores: { "ДА": 0, "НЕТ": 9, "НЕ ЗНАЮ": 8 }
+            },
+            { // Q12: Loss of bodily autonomy, direct threat to self
+                question: "вы когда нибудь теряли контроль над собой?",
+                scores: { "ДА": 10, "НЕТ": 0, "НЕ ЗНАЮ": 9 }
+            },
+            { // Q13: Stronger location questioning, trapped feeling
+                question: "вы знаете где вы находитесь НА САМОМ ДЕЛЕ?",
+                scores: { "ДА": 0, "НЕТ": 11, "НЕ ЗНАЮ": 10 }
+            },
+            { // Q14: Escalation of voices, direct and personal
+                question: "вы уверены что вы настоящий человек?",
+                scores: { "ДА": 12, "НЕТ": 0, "НЕ ЗНАЮ": 11 }
+            },
+            { // Q15: Final choice, meta-narrative, ultimate despair
+                question: "вы уверены?",
+                scores: { "ДА": 0, "НЕТ": 0, "НЕ ЗНАЮ": 0 }
+            },
+            { // Q16: Sense of unreality, subtle
+                question: "иногда вам кажется что происходящее нереально?",
+                scores: { "ДА": 5, "НЕТ": 0, "НЕ ЗНАЮ": 3 }
+            },
+            { // Q17: Personal space invasion, psychological
+                question: "ваши мысли полностью контролируете вы?",
+                scores: { "ДА": 0, "НЕТ": 8, "НЕ ЗНАЮ": 6 }
+            },
+            { // Q18: Memory manipulation
+                question: "...?",
+                scores: { "...": 0, "...": 0, "...": 0 }
+            },
+            { // Q19: Visual distortion
+                question: "ЗАМЕЧАЛИ ЛИ ВЫ, ЧТО ПРЕДМЕТЫ ИНОГДА МЕНЯЮТ СВОИ ФОРМЫ?",
+                scores: { "ДА": 10, "НЕТ": 0, "НЕ ЗНАЮ": 8 }
+            },
+            { // Q20: Loss of control, direct
+                question: "ВЫ ЧУВСТВУЕТЕ, ЧТО ТЕРЯЕТЕ КОНТРОЛЬ НАД СИТУАЦИЕЙ?",
+                scores: { "ДА": 11, "НЕТ": 0, "НЕ ЗНАЮ": 9 }
+            },
+            { // Q21: Auditory escalation
+                question: "ГОЛОСА В ВАШЕЙ ГОЛОВЕ СТАНОВЯТСЯ ВСЕ ГРОМЧЕ?",
+                scores: { "ДА": 12, "НЕТ": 0, "НЕ ЗНАЮ": 10 }
+            },
+            { // Q22: Existential dread
+                question: "ВЫ ОЩУЩАЕТЕ БЕСПРИЧИННЫЙ СТРАХ ИЛИ ТРЕВОГУ?",
+                scores: { "ДА": 13, "НЕТ": 0, "НЕ ЗНАЮ": 11 }
+            },
+            { // Q23: Paranoia
+                question: "ВЫ ДУМАЕТЕ, ЧТО ЗА ВАМИ НАБЛЮДАЮТ?",
+                scores: { "ДА": 14, "НЕТ": 0, "НЕ ЗНАЮ": 12 }
+            },
+            { // Q24: Breaking the fourth wall
+                question: "ВЫ ПОНИМАЕТЕ, ЧТО ЭТО ПРОСТО ОПРОС?",
+                scores: { "ДА": 0, "НЕТ": 15, "НЕ ЗНАЮ": 13 }
+            },
+            { // Q25: Final question, very high stakes
+                question: "ВЫ ГОТОВЫ ПРИНЯТЬ ТО, ЧТО ВЫ НЕ ОДНИ?",
+                scores: { "ДА": 16, "НЕТ": 0, "НЕ ЗНАЮ": 14 }
+            }
+        ];
+
+        let currentQuestionIndex = -1;
+        let unsettlingScore = 0;
+        let nextQuestionPause = 400; // Начальная короткая пауза для первого вопроса
+
+        const questionElement = document.getElementById('question');
+        const optionsElement = document.getElementById('options');
+        const gameArea = document.querySelector('.game-area');
+        const endScreen = document.getElementById('endScreen');
+        const endMessageElement = document.getElementById('endMessage');
+        const body = document.body;
+        const container = document.querySelector('.container');
+
+        // Максимальный возможный счет: Сумма максимальных баллов по всем 25 вопросам = 195
+        // (1+1+2+1+2+3+4+5+6+7+8+9+10+11+12+13+14+15+16 = 153)
+        // Обновленные значения для концовок
+        const endings = {
+            low: { // 0-50 очков
+                message: `<p>ВАШ РАЗУМ ЧИСТ.</p><p>ВЫ СВОБОДНЫ.</p>`,
+                color: '#00ff00',
+                animation: 'none'
+            },
+            medium: { // 51-120 очков
+                message: `<p>ВЫ ВИДЕЛИ ТЕНИ.</p><p>ОНИ ЗАПОМНИЛИ ВАС.</p><p>БУДЬТЕ ОСТОРОЖНЫ.</p>`,
+                color: '#ffdd00',
+                animation: 'flicker 0.8s infinite alternate'
+            },
+            high: { // 121-195 очков
+                message: `<p>ГРАНИЦЫ СТЁРТЫ.</p><p>ВЫ ВНУТРИ. ОНИ ВНУТРИ.</p><p>ДОБРО ПОЖАЛОВАТЬ.</p>`,
+                color: '#ff0000',
+                animation: 'flicker 0.3s infinite alternate'
+            }
+        };
+
+        // Added for the first interaction to start audio context
+        function startAudioContext() {
             if (Tone.context.state !== 'running') {
-                await Tone.start();
-                console.log('AudioContext started on button click.');
+                Tone.start();
+                console.log('AudioContext started');
             }
-            // Воспроизводим звук, если он включен
-            if (isSoundEnabled) {
-                synthToPlay.triggerAttackRelease("C5", "8n", Tone.now()); 
-            }
-            // Выполняем основное действие кнопки
-            if (callback) callback();
-        }
-
-        // Управление кастомным курсором
-        let cursorX = 0;
-        let cursorY = 0;
-        let targetCursorX = 0;
-        let targetCursorY = 0;
-        const cursorSpeed = 0.2; // Скорость следования курсора
-
-        function animateCursor() {
-            cursorX += (targetCursorX - cursorX) * cursorSpeed;
-            cursorY += (targetCursorY - cursorY) * cursorSpeed;
-            customCursor.style.left = `${cursorX}px`;
-            customCursor.style.top = `${cursorY}px`;
-            requestAnimationFrame(animateCursor);
-        }
-
-        document.addEventListener('mousemove', (e) => {
-            targetCursorX = e.clientX;
-            targetCursorY = e.clientY;
-        });
-
-        // Отслеживание наведения на интерактивные элементы для изменения курсора
-        // Добавляем обработчики к document, чтобы ловить события на всех кнопках
-        document.addEventListener('mouseover', (e) => {
-            const target = e.target;
-            if (target.tagName === 'BUTTON' || target.tagName === 'A' || target.type === 'button' || target.type === 'submit') {
-                body.classList.add('cursor-hover');
-                if (isSoundEnabled) {
-                    // Используем triggerAttack и triggerRelease для hover звука
-                    menuHoverSynth.triggerAttack("C4", Tone.now());
-                }
-            }
-        });
-
-        document.addEventListener('mouseout', (e) => {
-            const target = e.target;
-            if (target.tagName === 'BUTTON' || target.tagName === 'A' || target.type === 'button' || target.type === 'submit') {
-                body.classList.remove('cursor-hover');
-                if (isSoundEnabled) {
-                    menuHoverSynth.triggerRelease(Tone.now());
-                }
-            }
-        });
-
-        // --- Функции для управления экранами и игрой ---
-
-        function hideAllScreens() {
-            mainMenu.style.display = 'none';
-            settingsMenu.style.display = 'none';
-            infoMenu.style.display = 'none';
-            gameArea.style.display = 'none';
-            endScreen.style.display = 'none';
-            fullscreenPrompt.style.display = 'none'; // Скрываем оверлей
-            initialDisclaimerPrompt.style.display = 'none'; // Скрываем дисклеймер
-            container.style.display = 'none'; // Скрываем основной контейнер
-        }
-
-        function showMainMenu() {
-            hideAllScreens();
-            container.style.display = 'flex'; // Показываем основной контейнер
-            mainMenu.style.display = 'flex';
-            body.classList.remove('stage-final'); 
-            body.classList.add('stage-1'); 
-            container.style.transform = 'scale(1)'; 
-            updateUIForLanguage(); 
-        }
-
-        function showSettingsMenu() {
-            hideAllScreens();
-            container.style.display = 'flex'; // Показываем основной контейнер
-            settingsMenu.style.display = 'flex';
-            updateSoundToggleButtonText(); 
-            updateSpeedButtonsActiveState(); 
-            updateUIForLanguage(); 
-        }
-
-        function showInfoMenu() {
-            hideAllScreens();
-            container.style.display = 'flex'; // Показываем основной контейнер
-            infoMenu.style.display = 'flex';
-            updateUIForLanguage(); 
         }
 
         function startGame() {
-            hideAllScreens();
-            container.style.display = 'flex'; // Показываем основной контейнер
-            gameArea.style.display = 'flex'; /* Изменено на flex для центрирования содержимого */
-            
+            startAudioContext(); // Ensure audio context is running on first interaction
+            gameArea.style.display = 'block';
+            endScreen.style.display = 'none';
+            body.className = '';
+            container.style.transform = 'scale(1)';
             unsettlingScore = 0;
             nextQuestionPause = 400;
             currentQuestionIndex = 0;
-            
-            currentTypingDelay = baseTypingDelay; 
-            currentTypingPitch = "C4"; 
-
-            showQuestion(); 
+            showQuestion();
         }
 
         async function showQuestion() {
             if (currentQuestionIndex < questions.length) {
                 const q = questions[currentQuestionIndex];
-                optionsElement.innerHTML = ''; 
+                optionsElement.innerHTML = ''; // Очищаем существующие кнопки
 
-                let questionText;
+                // Анимируем появление текста вопроса
+                await typeText(questionElement, q.question, 50); // 50 мс задержка между символами
 
-                // Обработка динамических вопросов
-                if (q.type === 'dynamic_time') {
-                    const now = new Date();
-                    const hours = String(now.getHours()).padStart(2, '0');
-                    const minutes = String(now.getMinutes()).padStart(2, '0');
-                    questionText = translations[currentLanguage].questionTime.replace('{time}', `${hours}:${minutes}`);
-                } else if (q.type === 'dynamic_ip') {
-                    try {
-                        const response = await fetch('http://ip-api.com/json/?fields=query'); // Запрашиваем только IP
-                        const data = await response.json();
-                        const ip = data.query || translations[currentLanguage].questionIpFallback; // Fallback
-                        questionText = translations[currentLanguage].questionIp.replace('{ip}', ip);
-                    } catch (error) {
-                        console.error("Ошибка получения IP:", error);
-                        questionText = translations[currentLanguage].questionIpFallback; // Запасной текст
-                    }
-                } else if (q.type === 'dynamic_location') {
-                    try {
-                        const response = await fetch('http://ip-api.com/json/?fields=city'); // Запрашиваем только город
-                        const data = await response.json();
-                        const city = data.city || translations[currentLanguage].questionLocationFallback; // Fallback
-                        questionText = translations[currentLanguage].questionLocation.replace('{city}', city);
-                    } catch (error) {
-                        console.error("Ошибка получения местоположения:", error);
-                        questionText = translations[currentLanguage].questionLocationFallback; // Запасной текст
-                    }
-                } else {
-                    // Для обычных вопросов используем questionIndex
-                    questionText = translations[currentLanguage].questions[q.questionIndex];
-                }
-
-                await typeText(questionElement, questionText); 
-
-                const buttonLabels = ["ДА", "НЕТ", "НЕ ЗНАЮ"]; 
+                const buttonLabels = ["ДА", "НЕТ", "НЕ ЗНАЮ"];
                 const buttons = [];
 
                 buttonLabels.forEach((label, index) => {
                     const button = document.createElement('button');
-                    button.innerText = translations[currentLanguage].answers[label]; 
-                    button.dataset.optionType = label; 
-                    button.onclick = () => handleButtonClick(menuClickSynth, () => selectOption(button)); // Используем handleButtonClick
+                    button.innerText = label;
+                    button.dataset.optionType = label;
+                    button.onclick = () => selectOption(button);
                     
+                    // Добавляем специфический класс для начальной трансформации на основе метки
                     if (label === "ДА") {
                         button.classList.add('initial-transform-da');
                     } else if (label === "НЕТ") {
                         button.classList.add('initial-transform-net');
-                    } else { 
+                    } else { // НЕ ЗНАЮ
                         button.classList.add('initial-transform-neznao');
                     }
 
@@ -951,8 +390,10 @@
                     buttons.push(button);
                 });
 
+                // Запускаем анимацию после небольшой задержки
                 buttons.forEach((button, index) => {
                     setTimeout(() => {
+                        // Удаляем класс начальной трансформации и добавляем класс show-button
                         if (button.dataset.optionType === "ДА") {
                             button.classList.remove('initial-transform-da');
                         } else if (button.dataset.optionType === "НЕТ") {
@@ -961,7 +402,7 @@
                             button.classList.remove('initial-transform-neznao');
                         }
                         button.classList.add('show-button');
-                    }, 50 + index * 200); 
+                    }, 50 + index * 200); // Небольшая начальная задержка + поэтапное появление
                 });
 
                 updateStage();
@@ -971,217 +412,91 @@
         }
 
         function selectOption(button) {
-            const optionType = button.dataset.optionType; 
+            const optionType = button.dataset.optionType;
             let scoreToAdd = questions[currentQuestionIndex].scores[optionType];
             
             unsettlingScore += scoreToAdd;
 
+            // Устанавливаем паузу для следующего вопроса в зависимости от выбранного ответа
             if (scoreToAdd === 0) {
-                nextQuestionPause = 400; 
-            } else if (scoreToAdd <= 2) { 
+                nextQuestionPause = 400; // Быстрая, "нормальная" реакция
+            } else if (scoreToAdd <= 2) { // Небольшая тревожность
                 nextQuestionPause = 1000;
-            } else if (scoreToAdd <= 4) { 
+            } else if (scoreToAdd <= 4) { // Заметная тревожность
                 nextQuestionPause = 1800;
-            } else if (scoreToAdd <= 6) { 
+            } else if (scoreToAdd <= 6) { // Сильная тревожность
                 nextQuestionPause = 2800;
-            } else if (scoreToAdd <= 9) { 
+            } else if (scoreToAdd <= 9) { // Очень сильная тревожность
                 nextQuestionPause = 4000;
-            } else { 
-                nextQuestionPause = 5000; 
+            } else { // scoreToAdd > 9 (предельная тревожность)
+                nextQuestionPause = 5000; // Максимальная, очень долгая пауза
             }
 
+            // Инициируем скрытие текущих кнопок
             Array.from(optionsElement.children).forEach(btn => {
-                btn.classList.remove('show-button'); 
+                btn.classList.remove('show-button'); // Удаляем класс, чтобы запустить обратную анимацию
+                // Убеждаемся, что кнопки полностью скрыты после выбора (если CSS transition не успевает)
                 btn.style.opacity = '0';
-                btn.style.visibility = 'hidden'; 
+                btn.style.visibility = 'hidden'; // Ensure they are hidden
             });
 
+            // Задержка перед показом следующего вопроса и очисткой контейнера
             setTimeout(() => {
+                // Очищаем контейнер только после того, как кнопки скрылись
                 optionsElement.innerHTML = '';
                 currentQuestionIndex++;
-                updateStage(); 
                 showQuestion();
-            }, nextQuestionPause); 
+            }, nextQuestionPause); // Используем рассчитанную паузу
         }
 
         function updateStage() {
-            const totalQuestions = questions.length;
-            const stage = Math.min(Math.floor((currentQuestionIndex / totalQuestions) * 4) + 1, 4);
+            const totalStages = questions.length;
+            // Сопоставляем текущий индекс вопроса стадиям. У нас 4 визуальные стадии.
+            // Убедимся, что стадия находится в диапазоне от 1 до 4.
+            const stage = Math.min(Math.floor((currentQuestionIndex / totalStages) * 4) + 1, 4);
             body.className = `stage-${stage}`;
             
-            currentTypingDelay = baseTypingDelay + Math.min(currentQuestionIndex * 3, 100); 
-
-            const pitchIndex = Math.floor(currentQuestionIndex / (totalQuestions / typingPitches.length));
-            currentTypingPitch = typingPitches[Math.min(pitchIndex, typingPitches.length - 1)];
-
             const scaleFactor = 1 + (currentQuestionIndex / questions.length) * 0.03; 
             container.style.transform = `scale(${scaleFactor})`;
         }
 
         function endGame() {
-            hideAllScreens(); 
-            container.style.display = 'flex'; 
-            endScreen.style.display = 'flex'; /* Изменено на flex для центрирования содержимого */
+            gameArea.style.display = 'none';
+            endScreen.style.display = 'block';
             body.classList.add('stage-final');
             container.style.transform = 'scale(1.03)';
 
-            const stressLevel = Math.round((unsettlingScore / MAX_UNSETTLING_SCORE) * 100);
             let finalEnding;
-
-            if (stressLevel <= 20) {
+            // Максимальный счет 95
+            if (unsettlingScore <= 50) { // Обновленные диапазоны
                 finalEnding = endings.low;
-            } else if (stressLevel <= 50) {
-                finalEnding = endings.moderate;
-            } else if (stressLevel <= 80) {
+            } else if (unsettlingScore <= 120) { // Обновленные диапазоны
+                finalEnding = endings.medium;
+            } else { // 121-195 очков
                 finalEnding = endings.high;
-            } else { 
-                finalEnding = endings.critical;
             }
 
-            endMessageElement.innerHTML = `<p>${translations[currentLanguage].stressLevel} ${stressLevel}%</p><p>${translations[currentLanguage][finalEnding.commentKey]}</p>`;
+            endMessageElement.innerHTML = finalEnding.message;
             endMessageElement.style.color = finalEnding.color;
             endMessageElement.style.animation = finalEnding.animation;
             endMessageElement.style.textShadow = `0 0 15px ${finalEnding.color}B3`;
-
-            document.getElementById('thanksMessage').innerText = translations[currentLanguage].thanks;
         }
 
-        // Функции для управления настройками
-        function toggleSound() {
-            isSoundEnabled = !isSoundEnabled;
-            localStorage.setItem('isSoundEnabled', isSoundEnabled); 
-            Tone.Destination.volume.value = isSoundEnabled ? 0 : -Infinity; 
-            updateSoundToggleButtonText();
-        }
-
-        function updateSoundToggleButtonText() {
-            soundToggleButton.innerText = `${translations[currentLanguage].sounds} ${isSoundEnabled ? translations[currentLanguage].on : translations[currentLanguage].off}`;
-        }
-
-        function setTypingSpeed(speed) {
-            baseTypingDelay = speed;
-            localStorage.setItem('typingSpeed', baseTypingDelay); 
-            updateSpeedButtonsActiveState();
-        }
-
-        function updateSpeedButtonsActiveState() {
-            const buttons = speedButtonsContainer.querySelectorAll('button');
-            buttons.forEach(btn => {
-                btn.classList.remove('active');
-                if (parseInt(btn.dataset.speed) === baseTypingDelay) {
-                    btn.classList.add('active');
-                }
-            });
-        }
-
-        function changeLanguage() {
-            const currentIndex = languageCodes.indexOf(currentLanguage);
-            const nextIndex = (currentIndex + 1) % languageCodes.length;
-            currentLanguage = languageCodes[nextIndex];
-            localStorage.setItem('language', currentLanguage); 
-            updateUIForLanguage();
-        }
-
-        function updateUIForLanguage() {
-            const lang = translations[currentLanguage];
-
-            document.getElementById('mainMenuTitle').innerText = lang.title;
-            document.getElementById('mainMenuSubtitle').innerText = lang.subtitle;
-            startButtonMenu.innerText = lang.startSurvey;
-            settingsButton.innerText = lang.settings;
-            infoButton.innerText = lang.info;
-
-            document.getElementById('settingsMenuTitle').innerText = lang.settings;
-            languageButton.innerText = lang.language;
-            updateSoundToggleButtonText(); 
-            document.getElementById('typingSpeedLabel').innerText = lang.typingSpeed;
-            speedFastButton.innerText = lang.fast;
-            speedNormalButton.innerText = lang.normal;
-            speedSlowButton.innerText = lang.slow;
-            backToMainMenuBtnSettings.innerText = lang.back;
-
-            // Обновленные поля для меню информации
-            document.getElementById('infoMenuTitle').innerText = lang.infoMenuTitle;
-            document.getElementById('infoVersion').innerText = lang.infoVersion;
-            document.getElementById('infoDevelopers').innerText = lang.infoDevelopers;
-            document.getElementById('infoDisclaimer').innerText = lang.infoDisclaimer;
-            backToMainMenuBtnInfo.innerText = lang.back;
-
-            document.getElementById('thanksMessage').innerText = lang.thanks;
-        }
-
-
-        // Инициализация - показываем оверлей для полноэкранного режима
+        // Инициализация - показываем стартовую кнопку
         document.addEventListener('DOMContentLoaded', () => {
-            hideAllScreens(); // Скрываем все
-            initialDisclaimerPrompt.style.display = 'flex'; // Показываем новый дисклеймер
+            gameArea.style.display = 'block';
+            endScreen.style.display = 'none';
+            questionElement.innerText = "НАЧАТЬ ОПРОС?";
+            
+            // Создаем и отображаем кнопку "НАЧАТЬ"
+            const startButton = document.createElement('button');
+            startButton.innerText = "НАЧАТЬ";
+            startButton.onclick = startGame;
+            // Добавляем специальный класс для начальной кнопки, чтобы она была сразу видна
+            startButton.classList.add('start-button'); 
+            optionsElement.appendChild(startButton);
 
-            // Запускаем анимацию кастомного курсора
-            requestAnimationFrame(animateCursor);
-
-            // Обработчик для кнопки согласия на дисклеймере
-            acceptDisclaimerButton.addEventListener('click', async () => {
-                hideAllScreens(); // Скрываем дисклеймер
-                fullscreenPrompt.style.display = 'flex'; // Показываем полноэкранный запрос
-
-                // Обработчик для первого клика по оверлею (после дисклеймера)
-                fullscreenPrompt.addEventListener('click', async () => {
-                    // Запускаем аудиоконтекст
-                    if (Tone.context.state !== 'running') {
-                        await Tone.start();
-                        console.log('AudioContext started on initial click.');
-                    }
-
-                    // Запрос полноэкранного режима
-                    if (document.documentElement.requestFullscreen) {
-                        document.documentElement.requestFullscreen();
-                    } else if (document.documentElement.mozRequestFullScreen) {
-                        document.documentElement.mozRequestFullScreen();
-                    } else if (document.documentElement.webkitRequestFullscreen) {
-                        document.documentElement.webkitRequestFullscreen();
-                    } else if (document.documentElement.msRequestFullscreen) {
-                        document.documentElement.msRequestFullscreen();
-                    }
-
-                    showMainMenu(); // Показываем главное меню после первого взаимодействия
-                }, { once: true }); // Обработчик сработает только один раз
-            });
-
-
-            // Добавляем обработчики событий для кнопок меню
-            // Используем mouseenter/mouseleave для hover звука и класса курсора
-            const interactiveElements = document.querySelectorAll('button, a, input[type="button"], input[type="submit"]');
-            interactiveElements.forEach(element => {
-                element.addEventListener('mouseenter', () => {
-                    body.classList.add('cursor-hover');
-                    if (isSoundEnabled) {
-                        menuHoverSynth.triggerAttack("C4", Tone.now());
-                    }
-                });
-                element.addEventListener('mouseleave', () => {
-                    body.classList.remove('cursor-hover');
-                    if (isSoundEnabled) {
-                        menuHoverSynth.triggerRelease(Tone.now());
-                    }
-                });
-            });
-
-            // Добавляем обработчики кликов, используя handleButtonClick
-            startButtonMenu.addEventListener('click', () => handleButtonClick(menuClickSynth, startGame));
-            settingsButton.addEventListener('click', () => handleButtonClick(menuClickSynth, showSettingsMenu));
-            infoButton.addEventListener('click', () => handleButtonClick(menuClickSynth, showInfoMenu));
-            backToMainMenuBtnSettings.addEventListener('click', () => handleButtonClick(menuClickSynth, showMainMenu));
-            backToMainMenuBtnInfo.addEventListener('click', () => handleButtonClick(menuClickSynth, showMainMenu));
-            languageButton.addEventListener('click', () => handleButtonClick(menuClickSynth, changeLanguage));
-            soundToggleButton.addEventListener('click', () => handleButtonClick(menuClickSynth, toggleSound));
-            speedFastButton.addEventListener('click', () => handleButtonClick(menuClickSynth, () => setTypingSpeed(30)));
-            speedNormalButton.addEventListener('click', () => handleButtonClick(menuClickSynth, () => setTypingSpeed(50)));
-            speedSlowButton.addEventListener('click', () => handleButtonClick(menuClickSynth, () => setTypingSpeed(80)));
-
-            // Инициализируем состояние кнопки звука и скорости
-            updateSoundToggleButtonText();
-            updateSpeedButtonsActiveState();
-            updateUIForLanguage(); 
+            body.classList.add('stage-1'); // Устанавливаем начальную стадию
         });
     </script>
 </body>
